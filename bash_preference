@@ -1,0 +1,45 @@
+# -*- sh -*-
+#
+# USAGE
+#
+#     For example, includes below code in .bashrc
+#
+#         PROMPTCOLOR='0;36m'
+#
+#         BASHPREFERENCE='/home/john/bashrc/bash_preference'
+#         if [ -f $BASHPREFERENCE ]; then
+#             . $BASHPREFERENCE
+#         fi
+#     
+
+
+#
+# bash
+#
+IGNOREEOF=100
+alias ls='ls --color'
+alias ll='ls -l'
+# umask 0077
+
+#
+# PS1
+#
+if [ -z ${PROMPTCOLOR+x} ]; then
+    PROMPTCOLOR='0;37m'
+fi
+
+GITPROMPT=/etc/bash_completion.d/git-prompt
+PS1GMONO='[\u@\h \W$(__git_ps1 "(%s)")]\$ '
+PS1GCOLOR='[\[\e[$PROMPTCOLOR\]\u@\h \W$(__git_ps1 "(%s)")\[\e[m\]]\$ '
+PS1MONO='[\u@\h \W]\$ '
+PS1COLOR='[\[\e[$PROMPTCOLOR\]\u@\h \W\[\e[m\]]\$ '
+
+if [ -e $GITPROMPT ]; then
+    . $GITPROMPT
+    # export PS1=$PS1GMONO
+    export PS1=$PS1GCOLOR
+else
+    # export PS1=$PS1MONO
+    export PS1=$PS1COLOR
+fi
+
