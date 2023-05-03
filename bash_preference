@@ -29,10 +29,10 @@ if [ -z ${PROMPTCOLOR+x} ]; then
 fi
 
 GITPROMPT=/etc/bash_completion.d/git-prompt
-PS1GMONO='[\u@\h \W$(__git_ps1 "(%s)")]\$ '
-PS1GCOLOR='[\[\e[$PROMPTCOLOR\]\u@\h \W$(__git_ps1 "(%s)")\[\e[m\]]\$ '
-PS1MONO='[\u@\h \W]\$ '
-PS1COLOR='[\[\e[$PROMPTCOLOR\]\u@\h \W\[\e[m\]]\$ '
+PS1GMONO='[\u@\h \W$(__git_ps1 "(%s)")]'
+PS1GCOLOR='[\[\e[$PROMPTCOLOR\]\u@\h \W$(__git_ps1 "(%s)")\[\e[m\]]'
+PS1MONO='[\u@\h \W]'
+PS1COLOR='[\[\e[$PROMPTCOLOR\]\u@\h \W\[\e[m\]]'
 
 if [ -e $GITPROMPT ]; then
     . $GITPROMPT
@@ -41,5 +41,12 @@ if [ -e $GITPROMPT ]; then
 else
     # export PS1=$PS1MONO
     export PS1=$PS1COLOR
+fi
+
+# red prompt for root.
+if [ $(id -u) == "0" ]; then
+    export PS1=$PS1'\[\e[0;31m\]\$\[\e[m\] '
+else
+    export PS1=$PS1'\$ '
 fi
 
