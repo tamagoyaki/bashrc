@@ -6,3 +6,4 @@
 #
 alias sudosh='sudo -Es'
 alias ll='ls -l'
+# alias rm=trash-put
